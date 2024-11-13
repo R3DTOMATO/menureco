@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 메뉴</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+  <div class="container">
+    <img src="/img/food-store.png" alt="메뉴 추천 배너" class="banner">
+
+    <h1>오늘의 메뉴 추천</h1>
+    <form id="menuForm">
+      <label for="category">음식 종류:</label>
+      <select id="category">
+        <option value="한식">한식</option>
+        <option value="중식">중식</option>
+        <option value="양식">양식</option>
+        <option value="일식">일식</option>
+      </select>
+
+      <label for="budget">예산:</label>
+      <select id="budget">
+        <option value="5000">5,000원 이하</option>
+        <option value="10000">10,000원 이하</option>
+        <option value="20000">20,000원 이하</option>
+        <option value="50000">50,000원 이하</option>
+      </select>
+
+      <button type="button" onclick="recommendMenu()">추천받기</button>
+    </form>
+    <p id="result"></p>
+    <img id="menuImage" src="" alt="" style="display: none; width: 100%; margin-top: 20px; border-radius: 8px;">
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+     
+      var disqus_config = function () {
+      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+     
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://oneulyi-menyu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <script src="app.js"></script>
+</body>
+</html>
