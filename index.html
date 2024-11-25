@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>오늘의 메뉴</title>
   <link rel="stylesheet" href="styles.css">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2265845119647833"
-     crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-2265845119647833">
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5bcc1201ea8f00973a8689dbfe3fd6e5&libraries=services"></script>
 </head>
 <body>
-    
   <div class="container">
     <img src="/img/food-store.png" alt="메뉴 추천 배너" class="banner">
 
@@ -36,6 +33,18 @@
     </form>
     <p id="result"></p>
     <img id="menuImage" src="" alt="" style="display: none; width: 100%; margin-top: 20px; border-radius: 8px;">
+    <div class="form-group">
+      <label for="location">위치:</label>
+      <div class="location-wrapper">
+        <input type="text" id="location" readonly placeholder="위치 찾기를 눌러주세요">
+        <button type="button" onclick="getCurrentLocation()" class="location-btn">
+          <span>📍 현재 위치 찾기</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 지도를 표시할 div -->
+    <div id="map" style="width:100%;height:300px;margin-top:20px;display:none;"></div>
   </div>
 
   <div id="disqus_thread"></div>
