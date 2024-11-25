@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 디저트</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <ul id="main-nav">
+        <li>
+          <a href="index.html">메뉴</a>
+        </li>
+        <li>
+          <a href="dessert.html">디저트</a>
+        </li>
+        <li>
+          <a href="mbti.html">mbti</a>
+        </li>
+      </ul>
+      <img src="/img/dessert-banner.png" alt="디저트 추천 배너" class="banner">
+    <h1>오늘의 디저트 추천</h1>
+    <form id="dessertForm">
+      <div class="form-group">
+        <label for="dessertType">디저트 종류:</label>
+        <select id="dessertType" required>
+          <option value="">선택해주세요</option>
+          <option value="케이크">케이크</option>
+          <option value="커피">커피</option>
+          <option value="빙수">빙수</option>
+          <option value="마카롱">마카롱</option>
+          <option value="베이커리">베이커리</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="preference">선호도:</label>
+        <select id="preference">
+          <option value="달콤">달콤한 맛</option>
+          <option value="과일">과일 디저트</option>
+          <option value="초코">초콜릿 디저트</option>
+          <option value="커피">커피와 어울리는</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dessertBudget">예산:</label>
+        <select id="dessertBudget" required>
+          <option value="">선택해주세요</option>
+          <option value="3000">3,000원 이하</option>
+          <option value="5000">5,000원 이하</option>
+          <option value="8000">8,000원 이하</option>
+          <option value="10000">10,000원 이하</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="recommendDessert()" class="recommend-btn">
+        <span class="button-text">디저트 추천받기</span>
+        <div class="loading-spinner" style="display: none;"></div>
+      </button>
+    </form>
+
+    <div class="result-container">
+      <p id="dessertResult" aria-live="polite"></p>
+      <img id="dessertImage" src="" alt="" class="menu-image">
+      <div id="cafeInfo" class="cafe-info" style="display: none;">
+        <h3>추천 카페 정보</h3>
+        <p id="cafeName"></p>
+        <p id="cafeAddress"></p>
+        <p id="cafeRating"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/javascript/dessert.js"></script>
+</body>
+</html>

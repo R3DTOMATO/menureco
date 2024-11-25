@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 MBTI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+
+        <ul id="main-nav">
+            <li>
+              <a href="index.html">메뉴</a>
+            </li>
+            <li>
+              <a href="dessert.html">디저트</a>
+            </li>
+            <li>
+              <a href="mbti.html">mbti</a>
+            </li>
+        </ul>
+
+      <h1>MBTI 심리 테스트</h1>
+      <button id="start-test">시작</button>
+      <div id="question-container" style="display:none;">
+        <p id="question-text"></p>
+        <div id="options-container"></div>
+      </div>
+      <div id="result-container" style="display:none;">
+        <h2>Your MBTI Type: <span id="result-type"></span></h2>
+        <p id="result-description"></p>
+        <p id="result-explain"></p>
+      </div>
+    </div>      
+    <div id="disqus_thread"></div>
+    <script>
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://nayi-mbti.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <script src="/javascript/script.js"></script>
+  <script id="dsq-count-scr" src="//nayi-mbti.disqus.com/count.js" async></script>
+</body>
+</html>
