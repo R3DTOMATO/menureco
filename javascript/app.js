@@ -147,127 +147,23 @@ function showMap() {
   marker.setMap(map);
 }
 
-// CSV 데이터를 저장할 배열
-let restaurants = [];
 
-// CSV 파일 로드 및 파싱
-async function loadRestaurants() {
-  try {
-    const response = await fetch('data/restaurants.csv');
-    const csvText = await response.text();
-    restaurants = parseCSV(csvText);
-  } catch (error) {
-    console.error('데이터 로드 실패:', error);
-  }
+// 다크 모드 토글 기능
+const themeToggle = document.getElementById('theme-toggle');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// 사용자의 이전 테마 설정 확인
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme) {
+  document.documentElement.setAttribute('data-theme', currentTheme);
+} else if (prefersDarkScheme.matches) {
+  document.documentElement.setAttribute('data-theme', 'dark');
 }
 
-// CSV 파싱 함수
-function parseCSV(csv) {
-  const lines = csv.split('\n');
-  const headers = lines[0].split(',');
+themeToggle.addEventListener('click', () => {
+  let theme = document.documentElement.getAttribute('data-theme');
+  let newTheme = theme === 'dark' ? 'light' : 'dark';
   
-  return lines.slice(1).filter(line => line.trim()).map(line => {
-    const values = line.split(',');
-    return {
-      id: values[0],
-      name: values[2],
-      address1: values[3],
-      address2: values[4],
-      areaCode: values[5],
-      category: values[7],
-      mapX: parseFloat(values[11]),  // 경도
-      mapY: parseFloat(values[12]),  // 위도
-      tel: values[23]
-    };
-  });
-}
-
-// 현재 위치 근처의 음식점 찾기
-function findNearbyRestaurants(userLat, userLng, radius = 3) {
-  return restaurants.filter(restaurant => {
-    const distance = calculateDistance(
-      userLat,
-      userLng,
-      restaurant.mapY,
-      restaurant.mapX
-    );
-    return distance <= radius; // 3km 이내
-  });
-}
-
-// 음식점 추천 함수
-function recommendRestaurant() {
-  if (!userLatitude || !userLongitude) {
-    alert('현재 위치를 가져오는 중입니다. 잠시만 기다려주세요.');
-    return;
-  }
-
-  const category = document.getElementById('category').value;
-  
-  // 현재 위치 근처의 음식점 찾기
-  let nearbyRestaurants = findNearbyRestaurants(userLatitude, userLongitude);
-  
-  // 카테고리 필터링
-  if (category !== '전체') {
-    nearbyRestaurants = nearbyRestaurants.filter(r => r.category.includes(category));
-  }
-
-  // 거리순 정렬
-  nearbyRestaurants.sort((a, b) => {
-    const distanceA = calculateDistance(userLatitude, userLongitude, a.mapY, a.mapX);
-    const distanceB = calculateDistance(userLatitude, userLongitude, b.mapY, b.mapX);
-    return distanceA - distanceB;
-  });
-
-  // 상위 5개 중에서 랜덤 선택
-  if (nearbyRestaurants.length > 0) {
-    const randomIndex = Math.floor(Math.random() * Math.min(5, nearbyRestaurants.length));
-    const selected = nearbyRestaurants[randomIndex];
-    
-    const distance = calculateDistance(
-      userLatitude,
-      userLongitude,
-      selected.mapY,
-      selected.mapX
-    ).toFixed(1);
-
-    // 결과 표시
-    document.getElementById('result').innerHTML = `
-      <h3>추천 맛집</h3>
-      <p>🏪 ${selected.name}</p>
-      <p>📍 ${selected.address1} ${selected.address2 || ''}</p>
-      <p>🚶‍♂️ 현재 위치에서 ${distance}km</p>
-      <p>📞 ${selected.tel || '전화번호 없음'}</p>
-    `;
-
-    // 카카오맵에 표시
-showMapWithMarker(selected);
-} else {
-document.getElementById('result').textContent =
-'주변에 조건에 맞는 음식점이 없습니다.';
-}
-}
-// 지도에 마커 표시
-function showMapWithMarker(restaurant) {
-const mapContainer = document.getElementById('map');
-const options = {
-center: new kakao.maps.LatLng(restaurant.mapY, restaurant.mapX),
-level: 3
-};
-const map = new kakao.maps.Map(mapContainer, options);
-// 마커 생성
-const marker = new kakao.maps.Marker({
-position: new kakao.maps.LatLng(restaurant.mapY, restaurant.mapX)
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
 });
-marker.setMap(map);
-// 인포윈도우 생성
-const infowindow = new kakao.maps.InfoWindow({
-content: <div style="padding:5px;">${restaurant.name}</div>
-});
-infowindow.open(map, marker);
-}
-// 페이지 로드 시 실행
-window.onload = async function() {
-await loadRestaurants();
-getCurrentLocation();
-};

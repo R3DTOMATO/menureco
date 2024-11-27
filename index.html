@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>오늘의 메뉴</title>
+  <meta name="description" content="맛있는 메뉴를 추천해드립니다. 한식, 중식, 양식, 일식 등 다양한 옵션이 있습니다.">
+  <meta name="keywords" content="메뉴추천, 맛집추천, 음식추천, 한식, 중식, 양식, 일식">
+  <meta property="og:title" content="오늘의 메뉴">
+  <meta property="og:description" content="맛있는 메뉴를 추천해드립니다">
+  <meta property="og:image" content="/img/food-store.png">
   <link rel="stylesheet" href="styles.css">
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5bcc1201ea8f00973a8689dbfe3fd6e5&libraries=services"></script>
 </head>
 <body>
   <div class="container">
-  
+    <button class="theme-toggle" id="theme-toggle" aria-label="다크 모드 전환">
+      🌓
+    </button>
     <ul id="main-nav">
       <li>
         <a href="index.html">메뉴</a>
@@ -43,6 +50,10 @@
 
       <button type="button" onclick="recommendMenu()">추천받기</button>
     </form>
+    <div id="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>메뉴를 찾고 있습니다...</p>
+    </div>
     <p id="result"></p>
     <img id="menuImage" src="" alt="" style="display: none; width: 100%; margin-top: 20px; border-radius: 8px;">
     <div class="form-group">
@@ -66,8 +77,8 @@
       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
      
       var disqus_config = function () {
-      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = window.location.href;  // 현재 페이지 URL 자동 설정
+        this.page.identifier = 'menu-recommendation'; // 고유 식별자 설정
       };
      
       (function() { // DON'T EDIT BELOW THIS LINE
@@ -82,3 +93,4 @@
   <script src="/javascript/app.js"></script>
 </body>
 </html>
+
